@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserCreateUpdate"
+              $ref: "#/components/schemas/User"
       responses:
         200:
           description: successful operation
@@ -85,7 +85,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserCreateUpdate"
+              $ref: "#/components/schemas/User"
       responses:
         200:
           description: successful operation
@@ -221,7 +221,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlaylistCreateUpdate"
+              $ref: "#/components/schemas/Playlist"
       responses:
         200:
           description: successful operation
@@ -312,7 +312,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlaylistCreateUpdate"
+              $ref: "#/components/schemas/Playlist"
       responses:
         200:
           description: successful operation
@@ -457,11 +457,7 @@ components:
       properties:
         id:
           type: integer
-        name:
-          type: string
-    UserCreateUpdate:
-      type: object
-      properties:
+          readOnly: true
         name:
           type: string
     Users:
@@ -512,21 +508,16 @@ components:
       properties:
         id:
           type: integer
+          readOnly: true
         name:
           type: string
         description:
           type: string
         songs:
           type: array
+          readOnly: true
           items:
             type: integer
-    PlaylistCreateUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
     Playlists:
       type: object
       properties:
