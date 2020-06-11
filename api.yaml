@@ -1,0 +1,536 @@
+openapi: 3.0.1
+info:
+  title: Take Home API
+  version: 1.0.0
+tags:
+  - name: Users
+  - name: Artists
+  - name: Playlists
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create a new user
+      requestBody:
+        description: User to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateUpdate"
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{userID}:
+    get:
+      tags:
+        - Users
+      summary: Find user by ID
+      parameters:
+        - in: path
+          name: userID
+          schema:
+            type: integer
+          required: true
+          description: id of the user to return
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - Users
+      summary: Update user
+      parameters:
+        - in: path
+          name: userID
+          schema:
+            type: integer
+          required: true
+          description: id of the user to update
+      requestBody:
+        description: update user payload
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateUpdate"
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - Users
+      summary: delete a user
+      parameters:
+        - in: path
+          name: userID
+          schema:
+            type: integer
+          required: true
+          description: id of the user to delete
+      responses:
+        204:
+          description: successful operation
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /artists/search:
+    get:
+      tags:
+        - Artists
+      summary: Search for an artist
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+          description: artist name to search for
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Artists"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /artists/{artistID}/songs/search:
+    get:
+      tags:
+        - Artists
+      summary: Search for song by for artistID
+      parameters:
+        - in: path
+          name: artistID
+          schema:
+            type: integer
+          required: true
+          description: id of the artist to search songs of
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+          description: song title to search for
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Songs"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /playlists:
+    post:
+      tags:
+        - Playlists
+      summary: Create a new playlist
+      requestBody:
+        description: Create playlist payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlaylistCreateUpdate"
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Playlist"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Playlists
+      summary: List playlists
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Playlists"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /playlists/{playlistID}:
+    get:
+      tags:
+        - Playlists
+      summary: Find playlist by ID
+      parameters:
+        - in: path
+          name: playlistID
+          schema:
+            type: integer
+          required: true
+          description: id of the playlist to return
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Playlist"
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - Playlists
+      summary: Update playlist
+      parameters:
+        - in: path
+          name: playlistID
+          schema:
+            type: integer
+          required: true
+          description: id of the playlist to update
+      requestBody:
+        description: update playlist payload
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlaylistCreateUpdate"
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Playlist"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - Playlists
+      summary: delete a playlist
+      parameters:
+        - in: path
+          name: playlistID
+          schema:
+            type: integer
+          required: true
+          description: id of the playlist to delete
+      responses:
+        204:
+          description: successful operation
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /playlists/{playlistID}/songs/{songID}:
+    post:
+      tags:
+        - Playlists
+      summary: Add song to playlist
+      parameters:
+        - in: path
+          name: playlistID
+          schema:
+            type: integer
+          required: true
+          description: id of the playlist to add song to
+        - in: path
+          name: songID
+          schema:
+            type: integer
+          required: true
+          description: id of the song to add to playlist
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Playlist"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - Playlists
+      summary: Remove song from a playlist
+      parameters:
+        - in: path
+          name: playlistID
+          schema:
+            type: integer
+          required: true
+          description: id of the playlist to remove song from
+        - in: path
+          name: songID
+          schema:
+            type: integer
+          required: true
+          description: id of the song to remove from playlist
+      responses:
+        204:
+          description: successful operation
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    UserCreateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+    Users:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+    Artist:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        thumb:
+          type: string
+        cover_image:
+          type: string
+    Artists:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Artist"
+    Song:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        label:
+          type: string
+        thumb:
+          type: string
+    Songs:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Song"
+    Playlist:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        songs:
+          type: array
+          items:
+            type: integer
+    PlaylistCreateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Playlists:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Playlist"
