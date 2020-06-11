@@ -3,27 +3,16 @@ import Vapor
 
 public extension Environment {
     
-    var databaseURL: String {
-        switch self {
-        case .testing:
-            return Environment.databaseTestingURL
-        case .development:
-            return Environment.databaseURL
-        default:
-            return Environment.databaseURL
-        }
-    }
-    
     func databaseConfig() throws -> PostgreSQLDatabaseConfig {
         var databaseConfiguration: PostgreSQLDatabaseConfig?
         switch self {
         case .testing:
-            databaseConfiguration = PostgreSQLDatabaseConfig(url: databaseURL)
+            databaseConfiguration = PostgreSQLDatabaseConfig(url: Environment.databaseURL)
         case .development:
-            databaseConfiguration = PostgreSQLDatabaseConfig(url: databaseURL)
+            databaseConfiguration = PostgreSQLDatabaseConfig(url: Environment.databaseURL)
         default:
             // `transport: .unverifiedTLS` is what you would commonly use for paid Heroku PostgreSQL plans.
-            databaseConfiguration = PostgreSQLDatabaseConfig(url: databaseURL, transport: .unverifiedTLS)
+            databaseConfiguration = PostgreSQLDatabaseConfig(url: Environment.databaseURL, transport: .unverifiedTLS)
         }
         
         guard let configuration = databaseConfiguration else {
@@ -39,10 +28,10 @@ public extension Environment {
         }
         return url
     }
-    
-    static var databaseTestingURL: String {
-        guard let url = Environment.get("DATABASE_TEST_URL") else {
-            fatalError("DATABASE_TEST_URL is not set.")
+
+    static var apiToken: String {
+        guard let url = Environment.get("API_TOKEN") else {
+            fatalError("API_TOKEN is not set.")
         }
         return url
     }

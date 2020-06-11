@@ -15,4 +15,7 @@ public func routes(_ router: Router) throws {
     router.get("users", use: userController.index)
     router.put("users", User.parameter, use: userController.update)
     router.delete("users", User.parameter, use: userController.delete)
+
+    let artistController = ArtistController()
+    router.get("artists/search", use: artistController.searchArtist)
 }

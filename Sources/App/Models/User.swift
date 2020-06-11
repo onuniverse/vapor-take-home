@@ -12,9 +12,9 @@ final class User: PostgreSQLModel {
     var name: String
 
     /// Creates a new `User`.
-    init(id: Int? = nil, title: String) {
+    init(id: Int? = nil, name: String) {
         self.id = id
-        self.name = title
+        self.name = name
     }
 
     enum CodingKeys: String, CodingKey {
