@@ -23,9 +23,6 @@ final class User: PostgreSQLModel {
     }
 }
 
-/// Allows `User` to be used as a dynamic migration.
-extension User: Migration { }
-
 /// Allows `User` to be encoded to and decoded from HTTP messages.
 extension User: Content { }
 
