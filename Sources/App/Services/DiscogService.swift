@@ -1,10 +1,6 @@
 import Vapor
 
-protocol ArtistService {
-    func searchArtist(artist: String, on req: Request) throws -> Future<[Artist]>
-}
-
-struct DiscogService: ArtistService, Service {
+struct DiscogService: ArtistService {
     private let searchURL = "https://api.discogs.com/database/search"
 
     private let headers: HTTPHeaders = [
