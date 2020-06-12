@@ -22,7 +22,6 @@ Manually create databases for the app.
 _Example_:
 
 - `VaporTakeHome` **for running locally**
-- `UniverseTransactionServiceTest` **for running unit tests**
 
 ### Configuring environment variables
 

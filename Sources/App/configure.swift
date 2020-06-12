@@ -14,7 +14,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     let router = EngineRouter.default()
     try routes(router)
     services.register(router, as: Router.self)
-    services.register(DiscogService(), as: DiscogService.self)
+    services.register(DiscogService(), as: ArtistService.self)
 
     // Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
@@ -30,10 +30,6 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     databases.add(database: postgresql, as: .psql)
     services.register(databases)
 
-    // Unless otherwise configured, your vapor app starts one worker per processor
-    // core (which is 8 on Heroku), then the connection "pool" starts collecting 10
-    // connections per worker. So if Heroku gives 8 cores, you should set maxConnections of
-    // ConnectionPoolConfig to maximum 2 (for Heroku's free Postgres tier w/ 20 connections).
     let poolConfig = DatabaseConnectionPoolConfig(maxConnections: 2)
     services.register(poolConfig)
 
