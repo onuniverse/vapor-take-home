@@ -1,6 +1,6 @@
 import Vapor
-import App
 import FluentPostgreSQL
+@testable import App
 
 extension Application {
     
@@ -14,6 +14,10 @@ extension Application {
         }
         
         try App.configure(&config, &env, &services)
+
+        services.register(MockArtistService(), as: ArtistService.self)
+        config.prefer(MockArtistService.self, for: ArtistService.self)
+
         let app = try Application(config: config, environment: env, services: services)
         
         try App.boot(app)
