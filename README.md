@@ -7,7 +7,7 @@
 1. Install Xcode
 2. Install Brew (if needed)
 3. `brew tap vapor/tap`
-4. `brew install vapor/tap/vapor`
+4. `brew install vapor/tap/vapor3`
 
 ### Installing dependencies
 
@@ -35,12 +35,12 @@ An `example.env` file is included as a template for the `.env` file, this can be
 
 ### Generate Xcode project
 
-`vapor xcode`
+`vapor3 xcode`
 
 ### Running the app
 
 - Postgres must be running.
-- `vapor run serve` or run button in Xcode
+- `vapor3 run serve` or run button in Xcode
 
 ### Running the tests
 
