@@ -1,6 +1,6 @@
 import Foundation
 
-struct ArtistSearchResponse: Decodable {
+struct ArtistReleasesResponse: Decodable {
     struct Pagination: Decodable {
         struct URLs: Decodable {
             let last: URL
@@ -23,5 +23,5 @@ struct ArtistSearchResponse: Decodable {
     }
 
     let pagination: Pagination
-    let results: [Artist]
+    let releases: [Release]
 }

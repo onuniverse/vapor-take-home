@@ -18,4 +18,15 @@ public func routes(_ router: Router) throws {
 
     let artistController = ArtistController()
     router.get("artists/search", use: artistController.searchArtist)
+    router.get("artists", Int.parameter, "songs", use: artistController.searchArtistReleases)
+    router.get("releases", Int.parameter, use: artistController.findRelease)
+    
+    let playlistController = PlaylistController()
+    router.post("playlists", use: playlistController.create)
+    router.get("playlists", use: playlistController.index)
+    router.get("playlists", Playlist.parameter, use: playlistController.find)
+    router.put("playlists", Playlist.parameter, use: playlistController.update)
+    router.delete("playlists", Playlist.parameter, use: playlistController.delete)
+    router.post("playlists", Int.parameter, "songs", Int.parameter, use: playlistController.addRelease)
+    /// missing the delete song endpoint because I couldn't figure out my syntax issues
 }
